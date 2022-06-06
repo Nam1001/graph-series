@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+void dfsofgraph( int node,vector<int>&store,vector<int>&vis,vector<int>adj[])
+{
+   store.push_back(node);
+   vis[node]=1;
+   for(auto it:adj[node])
+   {
+       if(vis[it]==0)
+       {
+           dfsofgraph(it,store,vis,adj);
+       }
+   }
+     
+}
+vector<int>dfs(int n,vector<int> adj[])
+{
+     vector<int> vis(n+1,0);
+     vector<int>store;
+     for(int i=1;i<=n;i++)
+     {
+         if(vis[i]==0)
+         {
+             dfsofgraph(i,store,vis,adj);
+         }
+     }
+     return store;
+}
+int main()
+{
+    int n,m;
+    cout<<"enter the vertex";
+    cin>>n;
+    cout<<"enter the edges";
+    cin>>m;
+    vector<int>adj[n+1];
+    for(int i=1;i<=m;i++)
+    {
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+        
+    }
+       vector<int>a= dfs(n,adj);
+       for(int i=0;i<a.size();i++)
+       {
+           cout<<a[i];
+       }
+    return 0;
+}
